@@ -1,0 +1,11 @@
+{
+  "name": "Calc 2 Learner",
+  "short_name": "Calc 2",
+  "description": "Interactive lessons and infinite practice for Calculus 2.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f6fa",
+  "theme_color": "#5b5bd6",
+  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
