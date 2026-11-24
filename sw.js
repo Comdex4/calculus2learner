@@ -1,5 +1,5 @@
 /* Service worker: cache the whole app so it works offline. Bump VERSION when files change. */
-const VERSION = 'c2l-v1';
+const VERSION = 'c2l-v2';
 const CORE = [
   './', 'index.html', 'manifest.webmanifest', 'assets/icon.svg', 'css/styles.css',
   'vendor/katex/katex.min.css', 'vendor/katex/katex.min.js',
@@ -15,12 +15,16 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
-// stale-while-revalidate: instant loads from cache, refreshed in the background
+// network-first: always the latest version when online, cached copy when offline
 self.addEventListener('fetch', e => {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin) return;
   e.respondWith(caches.open(VERSION).then(async cache => {
-    const hit = await cache.match(e.request, { ignoreSearch: true });
-    const net = fetch(e.request).then(res => { if (res && res.ok) cache.put(e.request, res.clone()); return res; }).catch(() => hit);
-    return hit || net;
+    try {
+      const res = await fetch(e.request, { cache: 'no-cache' });
+      if (res && res.ok) cache.put(e.request, res.clone());
+      return res;
+    } catch (err) {
+      return (await cache.match(e.request, { ignoreSearch: true })) || Response.error();
+    }
   }));
 });

@@ -465,3 +465,37 @@ a.up-row:hover { background: var(--card-2); }
 .reduce-motion *, .reduce-motion *::before, .reduce-motion *::after { animation: none !important; transition: none !important; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
 @media print { .sidebar, .topbar, .tabbar, .lesson-nav, .prob-actions { display: none !important; } .main { margin: 0; } }
+
+/* ============ Readable rich text (lessons, reference, problems) ============ */
+.md { line-height: 1.75; }
+.md p { margin: 0 0 .9rem; }
+.prose { font-size: 1.06rem; max-width: 68ch; }
+.lesson-card-step .prose { max-width: none; }
+.md h3, .md h4, .md h5, .md h6 { margin: 1.4rem 0 .6rem; line-height: 1.3; font-weight: 700; }
+.md > h3:first-child, .md > h4:first-child, .md > h5:first-child, .md > h6:first-child { margin-top: 0; }
+.prose h5 { font-size: 1.3rem; display: flex; align-items: center; gap: .55rem; }
+.prose h5::before { content: ''; width: 5px; height: 1.15em; border-radius: 3px; background: var(--accent); flex: none; }
+.md strong { color: var(--text); font-weight: 700; }
+.md ul, .md ol { padding-left: 1.4rem; margin: .2rem 0 1rem; }
+.md li { margin: .4rem 0; padding-left: .2rem; }
+.md ul > li::marker { color: var(--accent); }
+.md ol > li::marker { color: var(--accent); font-weight: 700; }
+.md li > ul, .md li > ol { margin: .3rem 0 .2rem; }
+.math-block { margin: 1rem 0 1.1rem; padding: .35rem 1rem; border-radius: 12px; background: var(--card-2); border: 1px solid var(--border); overflow-x: auto; }
+.math-block .katex-display { margin: .5rem 0; }
+.md .table-wrap { margin: .8rem 0 1.2rem; border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; background: var(--card); }
+.md table { margin: 0; border-collapse: separate; border-spacing: 0; width: 100%; font-size: 1rem; }
+.md th { background: var(--accent-soft); color: var(--accent); font-size: .78rem; letter-spacing: .06em; padding: .65rem 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+.md td { padding: .7rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.md tbody tr:last-child td { border-bottom: 0; }
+.md tbody tr:nth-child(even) td { background: color-mix(in srgb, var(--card-2) 60%, transparent); }
+.md tbody tr:hover td { background: var(--accent-soft); }
+.md td + td, .md th + th { border-left: 1px solid var(--border); }
+.md table.no-head thead { display: none; }
+.md td .katex { font-size: calc(1.05em * var(--math-scale)); }
+.lesson-card-step { padding: 1.8rem 2rem; }
+@media (max-width: 560px) { .lesson-card-step { padding: 1.15rem; } .md td, .md th { padding: .55rem .65rem; } }
+.callout > div:last-child p:last-child { margin-bottom: 0; }
+.callout { line-height: 1.65; }
+.ref .md table { font-size: .95rem; }
+.md td .katex { display: inline-block; white-space: nowrap; }

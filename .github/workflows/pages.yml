@@ -27,6 +27,8 @@ jobs:
         run: node tests/run-generators.js all 40
       - name: Validate lesson content
         run: node tests/run-content.js
+      - name: Check rendered text (no leaked markdown)
+        run: node tests/run-render.js
 
   deploy:
     if: github.event_name != 'pull_request'
